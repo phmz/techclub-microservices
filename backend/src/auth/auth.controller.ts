@@ -1,0 +1,30 @@
+import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
+import { Response } from 'express';
+import { LoginUserDto } from '../common/dtos/login-user.dto';
+import { RegisterUserDto } from '../common/dtos/register-user.dto';
+import { LocalAuthGuard } from '../common/guards/local-auth.guard';
+import { GetUser } from '../common/decorators/get-user.decorator';
+import { User } from '../users/model/user.entity';
+import { AuthService } from './auth.service';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('register')
+  async register(@Body() registerUserDto: RegisterUserDto): Promise<void> {
+    await this.authService.register(registerUserDto);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @ApiBody({ type: LoginUserDto })
+  @Post('login')
+  login(
+    @GetUser() user: User,
+    @Res({ passthrough: true }) response: Response,
+  ): void {
+    const token = this.authService.generateToken(user);
+    response.cookie('token', token, { maxAge: 1000 * 60 * 60 });
+  }
+}
