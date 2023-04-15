@@ -25,6 +25,14 @@ services:
     depends_on:
       - postgres
 
+  user-management-service:
+    container_name: user-management-service
+    build: ./user-management-ms
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+
 volumes:
     postgres:
         driver: local

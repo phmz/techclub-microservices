@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -16,6 +16,13 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.use(cookieParser());
+
+  const logger = new Logger();
+  logger.log(
+    `${process.env.npm_package_name} v${process.env.npm_package_version} is running on port 3000`,
+    'bootstrap',
+  );
+
   await app.listen(3000);
 }
 bootstrap();
