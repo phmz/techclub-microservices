@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import { ClientProxy } from '@nestjs/microservices';
+import { lastValueFrom } from 'rxjs';
 import { RegisterUserDto } from '../common/dtos/register-user.dto';
 import { User } from './model/user.entity';
 
@@ -10,28 +11,42 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @Inject('USER_MANAGEMENT_SERVICE')
+    private readonly userManagementClient: ClientProxy,
   ) {}
 
   async register(registerUserDto: RegisterUserDto): Promise<void> {
-    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
+    const success = await lastValueFrom(
+      this.userManagementClient.send({ cmd: 'createUser' }, registerUserDto),
+    );
 
-    const user = {
-      ...registerUserDto,
-      password: hashedPassword,
-    };
-
-    await this.userRepository.save(user);
+    if (!success) {
+      throw new ConflictException('User already exists');
+    }
   }
 
   async findOne(login: string): Promise<User> {
-    return this.userRepository.findOneBy({ login });
+    return lastValueFrom(
+      this.userManagementClient.send({ cmd: 'findByLogin' }, { login }),
+    );
+  }
+
+  async login(login: string, password: string): Promise<User> {
+    const user = (
+      await lastValueFrom(
+        this.userManagementClient.send<{ user: User }>(
+          { cmd: 'login' },
+          { login, password },
+        ),
+      )
+    ).user;
+
+    return user;
   }
 
   async findById(id: string): Promise<User> {
-    return this.userRepository.findOneBy({ id });
-  }
-
-  me() {
-    throw new Error('Method not implemented.');
+    return lastValueFrom(
+      this.userManagementClient.send({ cmd: 'findById' }, { id }),
+    );
   }
 }

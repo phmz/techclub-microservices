@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Res, UseGuards } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { Response } from 'express';
 import { LoginUserDto } from '../common/dtos/login-user.dto';
@@ -10,10 +10,13 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   async register(@Body() registerUserDto: RegisterUserDto): Promise<void> {
+    this.logger.debug(`Registering user with login: ${registerUserDto.login}`);
     await this.authService.register(registerUserDto);
   }
 
@@ -24,6 +27,7 @@ export class AuthController {
     @GetUser() user: User,
     @Res({ passthrough: true }) response: Response,
   ): void {
+    this.logger.debug(`Logging in user with login: ${user.login}`);
     const token = this.authService.generateToken(user);
     response.cookie('token', token, { maxAge: 1000 * 60 * 60 });
   }
