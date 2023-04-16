@@ -1,5 +1,5 @@
 import { Body, Controller, Logger, Post, Res, UseGuards } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { LoginUserDto } from '../common/dtos/login-user.dto';
 import { RegisterUserDto } from '../common/dtos/register-user.dto';
@@ -8,6 +8,7 @@ import { GetUser } from '../common/decorators/get-user.decorator';
 import { User } from '../users/interface/user.interface';
 import { AuthService } from './auth.service';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);

@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Product {
@@ -20,11 +21,12 @@ export class Product {
   @Column()
   description: string;
 
+  @Exclude()
   @CreateDateColumn()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
+  @Exclude()
   @UpdateDateColumn()
-  @Column()
   updatedAt: Date;
 }

@@ -34,7 +34,7 @@ export class AppService {
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
     const product = await this.productRepository.findOneByOrFail({ id });
-
+    console.log('yooooo', id, JSON.stringify(updateProductDto));
     if (updateProductDto.name) {
       product.name = updateProductDto.name;
     }
