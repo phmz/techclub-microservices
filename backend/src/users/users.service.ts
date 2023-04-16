@@ -1,16 +1,12 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { RegisterUserDto } from '../common/dtos/register-user.dto';
-import { User } from './model/user.entity';
+import { User } from './interface/user.interface';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
     @Inject('USER_MANAGEMENT_SERVICE')
     private readonly userManagementClient: ClientProxy,
   ) {}

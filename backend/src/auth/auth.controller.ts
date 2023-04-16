@@ -5,7 +5,7 @@ import { LoginUserDto } from '../common/dtos/login-user.dto';
 import { RegisterUserDto } from '../common/dtos/register-user.dto';
 import { LocalAuthGuard } from '../common/guards/local-auth.guard';
 import { GetUser } from '../common/decorators/get-user.decorator';
-import { User } from '../users/model/user.entity';
+import { User } from '../users/interface/user.interface';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
