@@ -33,6 +33,16 @@ services:
     depends_on:
       - postgres
 
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: 'rabbitmq'
+    ports:
+      - '5672:5672' # Default RabbitMQ port
+      - '15672:15672' # Management web interface
+    environment:
+      RABBITMQ_DEFAULT_USER: 'rabbitmq'
+      RABBITMQ_DEFAULT_PASS: 'rabbitmq'
+
 volumes:
     postgres:
         driver: local
