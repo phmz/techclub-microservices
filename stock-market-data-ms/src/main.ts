@@ -6,6 +6,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
+    {
+      options: {
+        host: 'localhost',
+        port: 8001,
+      },
+    },
   );
 
   const logger = new Logger();
