@@ -67,3 +67,16 @@ export const getChartOption = (stockChartOptions: StockChartOption[], stockData:
 			},
 		],
 	}};
+
+export const changeColorOption = (stockChartOptions: StockChartOption[], symbol: string, color: string) => {
+	return stockChartOptions.map(option => {
+		if (option.symbol === symbol) {
+			return {
+				...option,
+				color,
+			};
+		}
+
+		return option;
+	});
+}

@@ -1,5 +1,6 @@
 import ReactECharts from 'echarts-for-react';
 import {useStockMarketData} from "./Chart.hook";
+import {TwitterPicker} from 'react-color';
 
 export type StockUpdate = {
 	symbol: string;
@@ -15,18 +16,24 @@ export type StockChartOption = {
 };
 
 const Chart = () => {
-	const {stockChartOptions, getOption}
+	const {stockChartOptions, getOption, saveColorOption}
 		= useStockMarketData()
 
 
 	return (
 		<div className='App'>
 			{stockChartOptions.map(option => (
-				<ReactECharts
-					key={option.symbol}
-					option={getOption(option.symbol)}
-					style={{height: '300px', width: '100%'}}
-				/>
+				<div key={option.symbol} style={{display: 'flex'}}>
+					<ReactECharts
+						option={getOption(option.symbol)}
+						style={{height: '300px', width: '100%'}}
+					/>
+					<TwitterPicker
+						styles={{default: {card: {width: '100px', height: '300px'}}}}
+						color={option.color}
+						onChangeComplete={(color) => saveColorOption(option.symbol, color.hex)}
+					/>
+				</div>
 			))}
 		</div>
 	);

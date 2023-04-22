@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {StockChartOption, StockUpdate} from "./Chart";
-import {getChartOption, updateStockChartOption, updateStockData} from "./Chart.service";
+import {getChartOption, changeColorOption, updateStockChartOption, updateStockData} from "./Chart.service";
 
 export const useStockMarketData = () => {
 	const [data, setData] = useState<Record<string, StockUpdate[]>>({});
@@ -15,9 +15,13 @@ export const useStockMarketData = () => {
 		});
 	}, []);
 
+	const saveColorOption = (symbol: string, color: string) => {
+		setStockChartOptions(prevStockChartOptions => changeColorOption(prevStockChartOptions, symbol, color));
+	}
+
 	return {
-		data,
 		stockChartOptions,
 		getOption: (symbol: string) => getChartOption(stockChartOptions, data[symbol] || [], symbol),
+		saveColorOption
 	}
 }
