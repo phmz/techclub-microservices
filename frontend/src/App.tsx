@@ -1,9 +1,14 @@
-import Chart from './components/Chart/Chart';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ChartsContainer from './components/ChartsContainer/ChartsContainer';
 
 const App = () => {
+	const queryClient = new QueryClient();
+
 	return (
 		<div className="App">
-			<Chart />
+			<QueryClientProvider client={queryClient}>
+				<ChartsContainer />
+			</QueryClientProvider>
 		</div>
 	);
 };

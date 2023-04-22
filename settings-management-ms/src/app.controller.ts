@@ -22,7 +22,7 @@ export class AppController {
   }
 
   @MessagePattern({ cmd: 'findAllSettings' })
-  async findAllSettings(data: any): Promise<Setting[]> {
+  async findAllSettings(): Promise<Setting[]> {
     this.logger.debug(`Finding all settings`);
     return this.appService.findAllSettings();
   }

@@ -6,9 +6,10 @@ import {
 	changeColorOption,
 	updateStockChartOption,
 	updateStockData,
+	Setting,
 } from './Chart.service';
 
-export const useStockMarketData = () => {
+export const useStockMarketData = ({ settings }: { settings: Setting[] }) => {
 	const [data, setData] = useState<Record<string, StockUpdate[]>>({});
 	const [stockChartOptions, setStockChartOptions] = useState<
 		StockChartOption[]
@@ -18,7 +19,8 @@ export const useStockMarketData = () => {
 		const socket = io('http://localhost:8000');
 		socket.on('stockUpdate', (stockUpdate: StockUpdate) => {
 			setStockChartOptions((prevStockChartOptions) =>
-				updateStockChartOption(prevStockChartOptions, stockUpdate)
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+				updateStockChartOption(prevStockChartOptions, stockUpdate, settings)
 			);
 			setData((prevData) => updateStockData(prevData, stockUpdate));
 		});

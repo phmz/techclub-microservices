@@ -17,6 +17,12 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.use(cookieParser());
 
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
+  });
+
   const logger = new Logger();
   logger.log(
     `${process.env.npm_package_name} v${process.env.npm_package_version} is running on port 8000`,
