@@ -24,7 +24,7 @@ export class StocksGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   onStockUpdate(stockUpdate: StockUpdate) {
-    this.logger.log(
+    this.logger.debug(
       `Broadcasting stock update: ${JSON.stringify(stockUpdate)}`,
     );
     this.server.emit('stockUpdate', stockUpdate);

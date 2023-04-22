@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { StockChartOption, StockUpdate } from './Chart';
 import {
 	getChartOption,
@@ -14,17 +14,31 @@ export const useStockMarketData = ({ settings }: { settings: Setting[] }) => {
 	const [stockChartOptions, setStockChartOptions] = useState<
 		StockChartOption[]
 	>([]);
+	const [socket, setSocket] = useState<Socket | null>(null);
 
 	useEffect(() => {
-		const socket = io('http://localhost:8000');
-		socket.on('stockUpdate', (stockUpdate: StockUpdate) => {
-			setStockChartOptions((prevStockChartOptions) =>
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-				updateStockChartOption(prevStockChartOptions, stockUpdate, settings)
-			);
-			setData((prevData) => updateStockData(prevData, stockUpdate));
-		});
+		const createdSocket = io('http://localhost:8000');
+		setSocket(createdSocket);
+
+		return () => {
+			createdSocket.disconnect();
+		};
 	}, []);
+
+	useEffect(() => {
+		if (socket) {
+			socket.on('stockUpdate', (stockUpdate: StockUpdate) => {
+				setStockChartOptions((prevStockChartOptions) =>
+					updateStockChartOption(prevStockChartOptions, stockUpdate, settings)
+				);
+				setData((prevData) => updateStockData(prevData, stockUpdate));
+			});
+
+			return () => {
+				socket.off('stockUpdate');
+			};
+		}
+	}, [socket]);
 
 	const saveColorOption = (symbol: string, color: string) => {
 		setStockChartOptions((prevStockChartOptions) =>
