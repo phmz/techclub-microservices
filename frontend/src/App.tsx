@@ -1,9 +1,9 @@
-import Chart from "./components/Chart/Chart";
+import Chart from './components/Chart/Chart';
 
 const App = () => {
 	return (
-		<div className='App'>
-			<Chart/>
+		<div className="App">
+			<Chart />
 		</div>
 	);
 };
