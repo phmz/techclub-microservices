@@ -1,4 +1,4 @@
-.PHONY: install start lint
+.PHONY: install start lint clean
 
 install:
 	docker-compose build
@@ -9,12 +9,17 @@ install:
 
 start:
 	docker-compose up -d
-	if [ -d backend ]; then cd backend && npm run start:dev; fi
-	if [ -d frontend ]; then cd frontend && npm run start; fi
-	if [ -d stock-market-data-ms ]; then cd stock-market-data-ms && npm run start:dev; fi
 
 lint:
 	if [ -d backend ]; then cd backend && npm run lint; fi
 	if [ -d frontend ]; then cd frontend && npm run lint; fi
 	if [ -d settings-management-ms ]; then cd settings-management-ms && npm run lint; fi
 	if [ -d stock-market-data-ms ]; then cd stock-market-data-ms && npm run lint; fi
+
+clean:
+	docker-compose down
+	rm -rf postgres
+	if [ -d backend ]; then cd backend && npm run clean; fi
+	if [ -d frontend ]; then cd frontend && npm run clean; fi
+	if [ -d settings-management-ms ]; then cd settings-management-ms && npm run clean; fi
+	if [ -d stock-market-data-ms ]; then cd stock-market-data-ms && npm run clean; fi
