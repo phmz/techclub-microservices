@@ -11,7 +11,9 @@ const fetchSettings = async () => {
 };
 
 const ChartsContainer = () => {
-	const { data: settings, isLoading } = useQuery('settings', fetchSettings);
+	const { data: settings, isLoading } = useQuery('settings', fetchSettings, {
+		retry: false,
+	});
 
 	return (
 		<div>
