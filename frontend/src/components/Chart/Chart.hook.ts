@@ -8,8 +8,8 @@ export const useStockMarketData = () => {
 	const [stockChartOptions, setStockChartOptions] = useState<StockChartOption[]>([]);
 
 	useEffect(() => {
-		const createdSocket = io('http://localhost:3100');
-		createdSocket.on('stockUpdate', (stockUpdate: StockUpdate) => {
+		const socket = io('http://localhost:8000');
+		socket.on('stockUpdate', (stockUpdate: StockUpdate) => {
 			setStockChartOptions(prevStockChartOptions => updateStockChartOption(prevStockChartOptions, stockUpdate));
 			setData(prevData => updateStockData(prevData, stockUpdate));
 		});

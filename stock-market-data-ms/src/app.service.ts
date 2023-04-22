@@ -2,6 +2,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { StockUpdate } from './common/interface/stock-update.interface';
 import { StockGateway } from './stock.gateway';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class AppService {
@@ -15,7 +16,12 @@ export class AppService {
     { symbol: 'TSLA', price: 90000, timestamp: this.initialTimestamp },
   ];
 
-  constructor(private readonly stockGateway: StockGateway) {}
+  constructor(
+    private readonly stockGateway: StockGateway,
+    private readonly amqpConnection: AmqpConnection,
+  ) {
+    this.generateMarketData();
+  }
 
   updateStockPrice(stock: StockUpdate): void {
     const priceChange = Math.round((Math.random() * 100 - 50) * 100);
@@ -34,6 +40,8 @@ export class AppService {
 
   publishStockUpdate(stock: StockUpdate): void {
     this.logger.log(`Publishing stock update: ${JSON.stringify(stock)}`);
-    this.stockGateway.onStockUpdate(stock);
+    this.amqpConnection.publish<StockUpdate>('stocks', 'stock.update', stock, {
+      queue: 'stock-market-data-ms/stock.update',
+    });
   }
 }

@@ -5,12 +5,12 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
-import { StockUpdate } from './common/interface/stock-update.interface';
 import { Logger } from '@nestjs/common';
+import { StockUpdate } from '../common/interface/stock-update.interface';
 
 @WebSocketGateway({ cors: true })
-export class StockGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  private readonly logger = new Logger(StockGateway.name);
+export class StocksGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  private readonly logger = new Logger(StocksGateway.name);
 
   @WebSocketServer()
   server: Server;

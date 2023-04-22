@@ -19,10 +19,10 @@ async function bootstrap() {
 
   const logger = new Logger();
   logger.log(
-    `${process.env.npm_package_name} v${process.env.npm_package_version} is running on port 3000`,
+    `${process.env.npm_package_name} v${process.env.npm_package_version} is running on port 8000`,
     'bootstrap',
   );
 
-  await app.listen(3000);
+  await app.listen(8000);
 }
 bootstrap();

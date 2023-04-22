@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { StocksService } from './stocks.service';
+import { StocksGateway } from './stocks.gateway';
 
 @Module({
   imports: [
@@ -12,9 +13,10 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
         },
       ],
       uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
-      connectionInitOptions: { wait: true },
+      enableControllerDiscovery: true,
+      connectionInitOptions: { wait: false },
     }),
   ],
-  providers: [AppService],
+  providers: [StocksService, StocksGateway],
 })
-export class AppModule {}
+export class StocksModule {}
