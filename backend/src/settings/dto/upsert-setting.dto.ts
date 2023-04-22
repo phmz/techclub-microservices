@@ -1,11 +1,11 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class LoginUserDto {
+export class UpsertSetting {
   @IsString()
   @IsNotEmpty()
-  readonly login: string;
+  readonly color: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly password: string;
+  readonly symbol: string;
 }

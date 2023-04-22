@@ -1,7 +1,6 @@
 // stock-market-data.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { StockUpdate } from './common/interface/stock-update.interface';
-import { StockGateway } from './stock.gateway';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
@@ -16,10 +15,7 @@ export class AppService {
     { symbol: 'TSLA', price: 90000, timestamp: this.initialTimestamp },
   ];
 
-  constructor(
-    private readonly stockGateway: StockGateway,
-    private readonly amqpConnection: AmqpConnection,
-  ) {
+  constructor(private readonly amqpConnection: AmqpConnection) {
     this.generateMarketData();
   }
 

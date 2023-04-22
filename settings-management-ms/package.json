@@ -1,5 +1,5 @@
 {
-  "name": "user-management-service",
+  "name": "settings-management-service",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -32,7 +32,6 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
-    "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",

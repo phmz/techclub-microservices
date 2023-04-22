@@ -25,9 +25,9 @@ services:
     depends_on:
       - postgres
 
-  user-management-service:
-    container_name: user-management-service
-    build: ./user-management-ms
+  settings-management-service:
+    container_name: settings-management-service
+    build: settings-management-ms
     ports:
       - "4000:4000"
     depends_on:

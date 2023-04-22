@@ -2,7 +2,7 @@ import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User } from './model/user.entity';
+import { Setting } from './model/setting.entity';
 
 @Module({
   imports: [
@@ -13,10 +13,10 @@ import { User } from './model/user.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [User],
+      entities: [Setting],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Setting]),
   ],
   controllers: [AppController],
   providers: [
