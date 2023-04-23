@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
-import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -18,10 +17,19 @@ import { AppController } from './app.controller';
       ],
       uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
       enableControllerDiscovery: true,
-      connectionInitOptions: { wait: true },
+      connectionInitOptions: { wait: false },
     }),
+    ClientsModule.register([
+      {
+        name: 'SETTINGS_MANAGEMENT_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'localhost',
+          port: 4000,
+        },
+      },
+    ]),
   ],
-  providers: [AppService],
-  controllers: [AppController],
+  exports: [ClientsModule, RabbitMQModule],
 })
-export class AppModule {}
+export class SharedModule {}

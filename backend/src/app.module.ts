@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StocksModule } from './stocks/stocks.module';
 import { SettingsModule } from './settings/settings.module';
+import { SharedModule } from './shared.module';
 
 @Module({
-  imports: [StocksModule, SettingsModule],
+  imports: [SharedModule, StocksModule, SettingsModule],
   controllers: [AppController],
   providers: [
     AppService,

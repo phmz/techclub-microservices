@@ -26,4 +26,9 @@ export class AppController {
     this.logger.debug(`Finding all settings`);
     return this.appService.findAllSettings();
   }
+
+  @MessagePattern({ cmd: 'healthcheck' })
+  getHealth(): string {
+    return 'OK';
+  }
 }

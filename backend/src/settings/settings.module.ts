@@ -1,21 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { SharedModule } from '../shared.module';
 import { SettingsController } from './settings.controller';
 import { SettingsService } from './settings.service';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'SETTINGS_MANAGEMENT_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: 'localhost',
-          port: 4000,
-        },
-      },
-    ]),
-  ],
+  imports: [SharedModule],
   controllers: [SettingsController],
   providers: [SettingsService],
 })
