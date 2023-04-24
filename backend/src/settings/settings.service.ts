@@ -1,24 +1,20 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { Injectable, Logger } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
 import { Setting } from './interface/setting.interface';
 import { UpsertSetting } from './dto/upsert-setting.dto';
 
 @Injectable()
 export class SettingsService {
-  constructor(
-    @Inject('SETTINGS_MANAGEMENT_SERVICE')
-    private readonly settingsManagementClient: ClientProxy,
-  ) {}
+  private readonly logger = new Logger(SettingsService.name);
 
   findAll(): Observable<Setting[]> {
-    return this.settingsManagementClient.send({ cmd: 'findAllSettings' }, {});
+    return of([]);
   }
 
   upsert(upsertSetting: UpsertSetting): Observable<boolean> {
-    return this.settingsManagementClient.send(
-      { cmd: 'upsertSetting' },
-      upsertSetting,
+    this.logger.debug(
+      `Upserting setting with symbol: ${upsertSetting.symbol} and color: ${upsertSetting.color}`,
     );
+    return of(true);
   }
 }

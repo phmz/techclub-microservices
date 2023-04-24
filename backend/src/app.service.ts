@@ -1,7 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import { lastValueFrom } from 'rxjs';
-import { ClientProxy } from '@nestjs/microservices';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
@@ -11,11 +8,7 @@ export class AppService {
   ]);
   private readonly logger = new Logger(AppService.name);
 
-  constructor(
-    private readonly amqpConnection: AmqpConnection,
-    @Inject('SETTINGS_MANAGEMENT_SERVICE')
-    private readonly settingsManagementClient: ClientProxy,
-  ) {
+  constructor() {
     setInterval(async () => {
       this.healths.set('SMP', await this.getSockMarketDataHealth());
     }, 10000);
@@ -25,27 +18,15 @@ export class AppService {
   }
 
   async getSockMarketDataHealth(): Promise<string> {
-    return this.amqpConnection
-      .request<string>({
-        exchange: 'healthcheck',
-        routingKey: 'healthcheck',
-      })
-      .then((value) => value)
-      .catch((err) => {
-        this.logger.error(`Stock Market Data MS is down, reason: ${err}`);
-        return 'KO';
-      });
+    return new Promise((resolve) => {
+      resolve('OK');
+    });
   }
 
   async getSettingsManagementHealth(): Promise<string> {
-    return lastValueFrom(
-      this.settingsManagementClient.send({ cmd: 'healthcheck' }, {}),
-    )
-      .then((value) => value)
-      .catch((err) => {
-        this.logger.error(`Settings Management MS is down, reason: ${err}`);
-        return 'KO';
-      });
+    return new Promise((resolve) => {
+      resolve('OK');
+    });
   }
 
   getHealth(): Map<string, string> {
