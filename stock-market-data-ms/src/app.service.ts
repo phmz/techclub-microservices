@@ -1,4 +1,3 @@
-// stock-market-data.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { StockUpdate } from './common/interface/stock-update.interface';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
