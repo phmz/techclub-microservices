@@ -29,7 +29,7 @@ export const useStockMarketData = ({ settings }: { settings: Setting[] }) => {
 		if (socket) {
 			socket.on('stockUpdate', (stockUpdate: StockUpdate) => {
 				setStockChartOptions((prevStockChartOptions) =>
-					updateStockChartOption(prevStockChartOptions, stockUpdate, settings)
+					updateStockChartOption(prevStockChartOptions, stockUpdate)
 				);
 				setData((prevData) => updateStockData(prevData, stockUpdate));
 			});
@@ -39,6 +39,32 @@ export const useStockMarketData = ({ settings }: { settings: Setting[] }) => {
 			};
 		}
 	}, [socket]);
+
+	useEffect(() => {
+		setStockChartOptions((prevStockChartOptions) =>
+			settings
+				.map((setting) => {
+					const existingOption = prevStockChartOptions.find(
+						(option) => option.symbol === setting.symbol
+					);
+
+					if (existingOption) {
+						return {
+							...existingOption,
+							color: setting.color,
+						};
+					}
+
+					return {
+						symbol: setting.symbol,
+						color: setting.color,
+						min: 0,
+						max: 0,
+					};
+				})
+				.sort((a, b) => a.symbol.localeCompare(b.symbol))
+		);
+	}, [settings]);
 
 	const saveColorOption = (symbol: string, color: string) => {
 		setStockChartOptions((prevStockChartOptions) =>

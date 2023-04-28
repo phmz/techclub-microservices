@@ -16,7 +16,7 @@ async function bootstrap() {
 
   const logger = new Logger();
   logger.log(
-    `${process.env.npm_package_name} v${process.env.npm_package_version} is running and listening to RabbitMQ on port 5672`,
+    `${process.env.npm_package_name} v${process.env.npm_package_version} is running and listening to RabbitMQ on port 5672 and HTTP on port 8001.`,
     'bootstrap',
   );
 

@@ -7,8 +7,7 @@ export interface Setting {
 
 export const updateStockChartOption = (
 	stockChartOptions: StockChartOption[],
-	stockUpdate: StockUpdate,
-	settings: Setting[]
+	stockUpdate: StockUpdate
 ) => {
 	const stockChartOption = stockChartOptions.find(
 		(option) => option.symbol === stockUpdate.symbol
@@ -33,16 +32,11 @@ export const updateStockChartOption = (
 		});
 	}
 
-	const savedColor = settings?.find(
-		(setting) => setting.symbol === stockUpdate.symbol
-	)?.color;
-
 	return [
 		...stockChartOptions,
 		{
 			symbol: stockUpdate.symbol,
-			color:
-				savedColor || '#' + Math.floor(Math.random() * 16777215).toString(16),
+			color: '#' + Math.floor(Math.random() * 16777215).toString(16),
 			min: Math.round((stockUpdate.price / 100) * 0.95),
 			max: Math.round((stockUpdate.price / 100) * 1.05),
 		},

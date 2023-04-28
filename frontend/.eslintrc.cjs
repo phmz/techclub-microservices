@@ -1,9 +1,10 @@
-{
-  "env": {
-    "browser": true,
-    "es6": true
+module.exports = {
+  env: {
+    browser: true,
+    es2020: true,
+    es6: true
   },
-  "extends": [
+  extends: [
     "eslint:recommended",
     "airbnb/hooks",
     "airbnb-typescript",
@@ -12,28 +13,25 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:react-hooks/recommended"
   ],
-  // Specifying Parser
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "tsconfigRootDir": ".",
-    "project": [
-      "./tsconfig.json"
-    ]
+    ecmaVersion: "latest",
+    sourceType: "module",
+    tsconfigRootDir: ".",
+    project: ["./tsconfig.json"]
   },
-  // Configuring third-party plugins
-  "plugins": [
+  plugins: [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react-refresh"
   ],
-  // Resolve imports
-  "settings": {
+  settings: {
     "import/resolver": {
       "typescript": {
         "project": "./tsconfig.json"
@@ -43,9 +41,8 @@
       "version": "18.x"
     }
   },
-  "rules": {
+  rules: {
     "linebreak-style": "off",
-    // Configure prettier
     "prettier/prettier": [
       "error",
       {
@@ -58,7 +55,6 @@
         "trailingComma": "es5"
       }
     ],
-    // Disallow the `any` type.
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/ban-types": [
       "error",
@@ -70,8 +66,8 @@
       }
     ],
     "react-hooks/exhaustive-deps": "off",
-    // Enforce the use of the shorthand syntax.
     "object-shorthand": "error",
-    "no-console": "warn"
+    "no-console": "warn",
+    "react-refresh/only-export-components": "warn"
   }
-}
+};

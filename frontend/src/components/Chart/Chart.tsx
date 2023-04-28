@@ -33,26 +33,48 @@ const Chart = ({ settings }: { settings: Setting[] }) => {
 	const mutation = useMutation(saveSetting);
 
 	return (
-		<div>
-			{stockChartOptions.map((option) => (
-				<div key={option.symbol} style={{ display: 'flex' }}>
-					<ReactECharts
-						option={getOption(option.symbol)}
-						style={{ height: '300px', width: '100%' }}
-					/>
-					<TwitterPicker
-						styles={{ default: { card: { width: '100px', height: '300px' } } }}
-						color={option.color}
-						onChangeComplete={(color) => {
-							saveColorOption(option.symbol, color.hex);
-							mutation.mutate({
-								symbol: option.symbol,
-								color: color.hex,
-							});
-						}}
-					/>
-				</div>
-			))}
+		<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+			{stockChartOptions.map((option) => {
+				const options = getOption(option.symbol);
+
+				if (!options.series?.[0].data.length) {
+					return null;
+				}
+
+				return (
+					<div
+						key={option.symbol}
+						style={{ display: 'flex', width: '50%', alignItems: 'center' }}
+					>
+						<ReactECharts
+							option={getOption(option.symbol)}
+							style={{ height: '300px', width: '80%' }}
+						/>
+						<TwitterPicker
+							styles={{
+								default: {
+									card: { width: '100px', height: '200px' },
+									input: {
+										display: 'none',
+									},
+									hash: {
+										display: 'none',
+									},
+								},
+							}}
+							triangle="hide"
+							color={option.color}
+							onChangeComplete={(color) => {
+								saveColorOption(option.symbol, color.hex);
+								mutation.mutate({
+									symbol: option.symbol,
+									color: color.hex,
+								});
+							}}
+						/>
+					</div>
+				);
+			})}
 		</div>
 	);
 };

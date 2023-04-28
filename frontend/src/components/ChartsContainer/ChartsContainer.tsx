@@ -11,14 +11,13 @@ const fetchSettings = async () => {
 };
 
 const ChartsContainer = () => {
-	const { data: settings, isLoading } = useQuery('settings', fetchSettings, {
+	const { data: settings } = useQuery('settings', fetchSettings, {
 		retry: false,
 	});
 
 	return (
 		<div>
-			{isLoading && <div>Loading...</div>}
-			{!isLoading && <Chart settings={settings || []} />}
+			<Chart settings={settings || []} />
 		</div>
 	);
 };
