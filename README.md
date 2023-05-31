@@ -49,7 +49,7 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
     - Pour cela, utilisez la commande CLI `nest new stock-market-data-ms`. Cette commande génère un nouveau projet NestJS avec une structure de fichiers standard.
 
 3. Modifiez le fichier `main.ts` pour créer une application microservice comme nécessaire.
-    - Dans `main.ts`, au lieu d'utiliser `app.listen(...)`, utilisez la méthode `app.connectMicroservice(...)`, qui prend en argument la configuration du microservice. Par exemple :
+    - Dans `main.ts`, au lieu d'utiliser `NestFactory.create(...)`, utilisez la méthode `NestFactory.createMicroservice(...)`, qui prend en argument la configuration du microservice. Par exemple :
       ```typescript
       const app = await NestFactory.createMicroservice(AppModule, {
         transport: Transport.TCP,
