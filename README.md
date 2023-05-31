@@ -23,7 +23,7 @@ Pour débuter, suivez les étapes suivantes pour installer et démarrer le proje
 
 1. Exécutez `make install` pour installer les dépendances du projet.
 2. Exécutez `make start` pour lancer les services nécessaires (bases de données, RabbitMQ).
-3. Dans le dossier `frontend`, exécutez `npm start` pour lancer l'application frontend.
+3. Dans le dossier `frontend`, exécutez `npm run start:dev` pour lancer l'application frontend.
 4. Dans le dossier `backend`, exécutez `npm run start:dev` pour démarrer le backend.
 
 ## Accès aux services
