@@ -89,12 +89,20 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
       RabbitMQModule.forRoot(RabbitMQModule, {
         exchanges: [
           {
-            name: 'exchange_name',
+            name: 'stocks',
             type: 'topic',
           },
         ],
         uri: 'amqp://rabbitmq_user:rabbitmq_password@localhost:5672',
       }),
+      ```
+    - Publiez les data :
+      ```typescript
+        publishStockUpdate(stock: StockUpdate): void {
+            this.amqpConnection.publish<StockUpdate>('stocks', 'stock.update', stock, {
+                queue: 'stock-market-data-ms/stock.update',
+            });
+        }
       ```
 
 6. Créez un client RabbitMQ dans le backend pour communiquer avec le microservice SMP.
