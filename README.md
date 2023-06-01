@@ -79,7 +79,7 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
       app.listen();
       ```
 
-4. Récupérez le code du data provider du backend pour l'implémenter dans le SMP.
+4. Récupérez le code du data provider du backend (`stock.service.ts`) sans la partie gateway pour l'implémenter dans le SMP dans le fichier `app.service.ts`.
     - Copiez les fichiers correspondants du backend dans le dossier `stock-market-data-ms` et assurez-vous de les adapter au contexte du microservice si nécessaire.
 
 5. Créez un client RabbitMQ pour publier les stock data en temps réel à partir du SMP.
@@ -101,7 +101,8 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
     - De la même manière que vous avez créé le client RabbitMQ dans le SMP, vous devez le faire dans le backend. Assurez-vous que la configuration de RabbitMQ correspond à celle du SMP.
 
 7. Injectez et utilisez le client RabbitMQ dans les services du backend pour s'abonner aux données boursières en temps réel publiées par le SMP.
-    - Utilisez le décorateur `@RabbitSubscribe(...)` pour vous abonner aux données boursières. Assurez-vous d'injecter le service RabbitMQ dans le service qui nécessite les données boursières.
+    - Dans `stock.service.ts` du backend enlevez toutes les méthodes sauf `publishStockUpdate`
+    - Utilisez le décorateur `@RabbitSubscribe(...)` sur la méthode `publishStockUpdate` pour vous abonner à la queue. Assurez-vous d'injecter le service RabbitMQ dans le service qui nécessite les data.
 
 8. (Optionnel) Configurez le client TCP dans le backend pour communiquer avec le microservice SMS.
     - Si vous décidez de créer un microservice SMS, vous devrez configurer un client TCP de la même manière que vous avez configuré le client RabbitMQ.
