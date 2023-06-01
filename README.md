@@ -41,10 +41,15 @@ Votre mission est de créer les microservices SMP et SMS, puis de connecter ces 
 
 ## Avant de commencer
 Dans le dossier backend créez un nouveau module avec la commande:
+
 `nest g module hello`
+
 Regardez ensuite le contenu du fichier module dans le dossier `src/hello`.
+
 Créez ensuite un controller avec la commande.
+
 `nest g controller hello`
+
 Vous pouvez voir que le controller a été ajouté dans les dépendences du module.
 
 ## Tâches à réaliser
