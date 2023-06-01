@@ -67,13 +67,15 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
 3. Modifiez le fichier `main.ts` pour créer une application microservice comme nécessaire.
     - Dans `main.ts`, au lieu d'utiliser `NestFactory.create(...)`, utilisez la méthode `NestFactory.createMicroservice(...)`, qui prend en argument la configuration du microservice. Par exemple :
       ```typescript
-      const app = await NestFactory.createMicroservice(AppModule, {
-        transport: Transport.TCP,
-        options: {
-          host: 'localhost',
-          port: 8001,
+      const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+        AppModule,
+        {
+          options: {
+            host: 'localhost',
+            port: 8001,
+          },
         },
-      });
+      );
       app.listen();
       ```
 
