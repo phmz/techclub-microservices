@@ -86,7 +86,7 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
     - Installez le package `@golevelup/nestjs-rabbitmq` en utilisant `npm install @golevelup/nestjs-rabbitmq`.
     - Créez une configuration RabbitMQ dans le fichier `app.module.ts`, comme suit :
       ```typescript
-      RabbitMQModule.forRoot(RabbitMQModule, {
+      import: [RabbitMQModule.forRoot(RabbitMQModule, {
         exchanges: [
           {
             name: 'stocks',
@@ -94,9 +94,9 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
           },
         ],
         uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
-      }),
+      })],
       ```
-    - Modifiez le constructeur:
+    - Modifiez le constructeur du `stock.service` :
       ```typescript
         constructor(private readonly amqpConnection: AmqpConnection) {
             this.generateMarketData();
