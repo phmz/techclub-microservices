@@ -4,7 +4,7 @@
 Assurez-vous d'avoir installé :
 
 - Node.js
-- Nest CLI (npm i -g @nestjs/cli)
+- Nest CLI (`npm i -g @nestjs/cli`)
 
 ## Introduction
 
