@@ -82,7 +82,7 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
 4. Récupérez le code du data provider du backend (`stock.service.ts`) sans la partie gateway pour l'implémenter dans le SMP dans le fichier `app.service.ts`.
     - Copiez les fichiers correspondants du backend dans le dossier `stock-market-data-ms` et assurez-vous de les adapter au contexte du microservice si nécessaire.
 
-5. Créez un client RabbitMQ pour publier les stock data en temps réel à partir du SMP.
+5. Créez un module RabbitMQ pour publier les stock data en temps réel à partir du SMP.
     - Installez le package `@golevelup/nestjs-rabbitmq` en utilisant `npm install @golevelup/nestjs-rabbitmq`.
     - Créez une configuration RabbitMQ dans le fichier `app.module.ts`, comme suit :
       ```typescript
@@ -96,6 +96,12 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
         uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
       }),
       ```
+    - Modifiez le constructeur:
+      ```typescript
+        constructor(private readonly amqpConnection: AmqpConnection) {
+            this.generateMarketData();
+        }
+      ```
     - Publiez les data :
       ```typescript
         publishStockUpdate(stock: StockUpdate): void {
@@ -103,10 +109,10 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
         }
       ```
 
-6. Créez un client RabbitMQ dans le backend pour communiquer avec le microservice SMP.
+6. Créez un module RabbitMQ dans le backend pour communiquer avec le microservice SMP.
     - De la même manière que vous avez créé le client RabbitMQ dans le SMP, vous devez le faire dans le backend. Assurez-vous que la configuration de RabbitMQ correspond à celle du SMP.
 
-7. Injectez et utilisez le client RabbitMQ dans les services du backend pour s'abonner aux données boursières en temps réel publiées par le SMP.
+7. Injectez et utilisez le module RabbitMQ dans les services du backend pour s'abonner aux données boursières en temps réel publiées par le SMP.
     - Dans `stock.service.ts` du backend enlevez toutes les méthodes sauf `publishStockUpdate`
     - Utilisez le décorateur `@RabbitSubscribe(...)` sur la méthode `publishStockUpdate` pour vous abonner à la queue. Assurez-vous d'injecter le service RabbitMQ dans le service qui nécessite les data.
 
