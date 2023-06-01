@@ -46,11 +46,13 @@ Dans le dossier backend créez un nouveau module avec la commande:
 
 Regardez ensuite le contenu du fichier module dans le dossier `src/hello`.
 
-Créez ensuite un controller avec la commande.
+Créez ensuite un controller et un service avec les commandes.
 
 `nest g controller hello`
 
-Vous pouvez voir que le controller a été ajouté dans les dépendences du module.
+`nest g service hello`
+
+Vous pouvez voir que le controller et le service ont été ajoutés dans les dépendences du module.
 
 ## Tâches à réaliser
 
