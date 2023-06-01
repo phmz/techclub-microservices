@@ -93,15 +93,13 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
             type: 'topic',
           },
         ],
-        uri: 'amqp://rabbitmq_user:rabbitmq_password@localhost:5672',
+        uri: 'amqp://rabbitmq:rabbitmq@localhost:5672',
       }),
       ```
     - Publiez les data :
       ```typescript
         publishStockUpdate(stock: StockUpdate): void {
-            this.amqpConnection.publish<StockUpdate>('stocks', 'stock.update', stock, {
-                queue: 'stock-market-data-ms/stock.update',
-            });
+            this.amqpConnection.publish<StockUpdate>('stocks', 'stock.update', stock);
         }
       ```
 
