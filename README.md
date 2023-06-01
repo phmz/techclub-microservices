@@ -58,7 +58,7 @@ Vous pouvez voir que le controller et le service ont été ajoutés dans les dé
 
 Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
 
-1. Créez un microservice SMP qui publie des données boursières en temps réel.
+1. ~Créez un microservice SMP qui publie des données boursières en temps réel.~
 
 2. Générez un projet nestjs pour créer le projet SMP (stock-market-data-ms).
     - Pour cela, utilisez la commande CLI `nest new stock-market-data-ms`. Cette commande génère un nouveau projet NestJS avec une structure de fichiers standard.
