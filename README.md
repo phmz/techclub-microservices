@@ -39,6 +39,14 @@ Une fois le projet démarré, vous pouvez accéder aux différents services et i
 
 Votre mission est de créer les microservices SMP et SMS, puis de connecter ces derniers au backend existant. Vous devrez configurer et utiliser les clients TCP et RabbitMQ dans le backend pour interagir avec ces microservices.
 
+## Avant de commencer
+Dans le dossier backend créez un nouveau module avec la commande:
+`nest g module hello`
+Regardez ensuite le contenu du fichier module dans le dossier `src/hello`.
+Créez ensuite un controller avec la commande.
+`nest g controller hello`
+Vous pouvez voir que le controller a été ajouté dans les dépendences du module.
+
 ## Tâches à réaliser
 
 Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
@@ -47,6 +55,7 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
 
 2. Générez un projet nestjs pour créer le projet SMP (stock-market-data-ms).
     - Pour cela, utilisez la commande CLI `nest new stock-market-data-ms`. Cette commande génère un nouveau projet NestJS avec une structure de fichiers standard.
+    - Installez la dépendance `npm i --save @nestjs/microservices`
 
 3. Modifiez le fichier `main.ts` pour créer une application microservice comme nécessaire.
     - Dans `main.ts`, au lieu d'utiliser `NestFactory.create(...)`, utilisez la méthode `NestFactory.createMicroservice(...)`, qui prend en argument la configuration du microservice. Par exemple :
