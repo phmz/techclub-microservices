@@ -117,7 +117,9 @@ Pour mener à bien votre mission, voici les tâches que vous devrez accomplir :
     - De la même manière que vous avez utilisé le client RabbitMQ, vous pouvez utiliser le client TCP pour communiquer avec le microservice SMS.
 
 10. Modifiez le client RabbitMQ dans le SMP pour publier dans le RabbitMQ du tech club, afin de pouvoir visualiser vos données sur le tableau.
+    - Modifier le service pour envoyer une seule data
     - Modifiez la configuration de RabbitMQ dans le SMP pour qu'elle pointe vers le RabbitMQ du tech club.
+   
 
 ## Avantages et inconvénients
 
