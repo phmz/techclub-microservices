@@ -13,7 +13,7 @@ Le projet se compose actuellement des éléments suivants :
 - Un backend qui interagit avec des microservices.
 - Un frontend qui présente les données boursières sous forme graphique.
 
-Le but du tech club est d'ajouté deux microservices au projet existant:
+Le but du tech club est d'ajouter deux microservices au projet existant:
 
 - SMP et SMS, qui fournissent les données et les paramètres pour les graphiques.
 
